@@ -30,36 +30,50 @@ function writeToLog(
     console.log(logEntries);
 }
 
-function add() {
+function calculateResult(calculationType) {
+    if (calculationType !== 'ADD' &&
+        calculationType !== 'SUBTRACTION' &&
+        calculationType !== 'MULTIPLICATION' &&
+        calculationType !== 'DIVISION') {
+        alert('Something went wrong!');
+    }
     const enteredNumber = getUserInput();
     const initialResult = currentResult;
-    currentResult += enteredNumber;
-    createAndWriteOutput('+', initialResult, enteredNumber);
-    writeToLog('ADD', initialResult, enteredNumber, currentResult);
+    let mathOperator;
+    if (calculationType === 'ADD') {
+        currentResult += enteredNumber;
+        mathOperator = '+';
+    }
+    else if (calculationType === 'SUBTRACTION') {
+        currentResult -= enteredNumber;
+        mathOperator = '-';
+    }
+    else if (calculationType === 'MULTIPLICATION') {
+        currentResult *= enteredNumber;
+        mathOperator = '*';
+    }
+    else if (calculationType === 'DIVISION') {
+        currentResult /= enteredNumber;
+        mathOperator = '/';
+    }
+    createAndWriteOutput(mathOperator, initialResult, enteredNumber);
+    writeToLog(calculationType, initialResult, enteredNumber, currentResult);
+}
+
+function add() {
+    calculateResult('ADD');
 }
 
 function sub() {
-    const enteredNumber = getUserInput();
-    const initialResult = currentResult;
-    currentResult -= enteredNumber;
-    createAndWriteOutput('-', initialResult, enteredNumber);
-    writeToLog('SUBTRACTION', initialResult, enteredNumber, currentResult);
+    calculateResult('SUBTRACTION');
 }
 
 function mul() {
-    const enteredNumber = getUserInput();
-    const initialResult = currentResult;
-    currentResult *= enteredNumber;
-    createAndWriteOutput('*', initialResult, enteredNumber);
-    writeToLog('MULTIPLICATION', initialResult, enteredNumber, currentResult);
+    calculateResult('MULTIPLICATION');
 }
 
 function div() {
-    const enteredNumber = getUserInput();
-    const initialResult = currentResult;
-    currentResult /= enteredNumber;
-    createAndWriteOutput('/', initialResult, enteredNumber);
-    writeToLog('DIVISION', initialResult, enteredNumber, currentResult);
+    calculateResult('DIVISION');
 }
 
 addBtn.addEventListener('click', add);
