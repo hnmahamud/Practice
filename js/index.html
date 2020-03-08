@@ -4,29 +4,23 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Basics</title>
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet"/>
-    <link rel="stylesheet" href="assets/styles/app.css"/>
+    <title>Monster Killer</title>
+    <link rel="stylesheet" href="assets/styles/app.css" />
     <script src="assets/scripts/vendor.js" defer></script>
     <script src="assets/scripts/app.js" defer></script>
   </head>
   <body>
-    <header>
-      <h1>The Unconventional Calculator</h1>
-    </header>
-
-    <section id="calculator">
-      <input type="number" id="input-number" />
-      <div id="calc-actions">
-        <button type="button" id="btn-add">+</button>
-        <button type="button" id="btn-subtract">-</button>
-        <button type="button" id="btn-multiply">*</button>
-        <button type="button" id="btn-divide">/</button>
-      </div>
+    <section id="health-levels">
+      <h2>MONSTER HEALTH</h2>
+      <progress id="monster-health" max="100" value="100">100%</progress>
+      <h2>PLAYER HEALTH<span id="bonus-life">1</span></h2>
+      <progress id="player-health" max="100" value="100">100%</progress>
     </section>
-    <section id="results">
-      <h2 id="current-calculation">0</h2>
-      <h2>Result: <span id="current-result">0</span></h2>
+    <section id="controls">
+      <button id="attack-btn">ATTACK</button>
+      <button id="strong-attack-btn">STRONG ATTACK</button>
+      <button id="heal-btn">HEAL</button>
+      <button id="log-btn">SHOW LOG</button>
     </section>
   </body>
 </html>
