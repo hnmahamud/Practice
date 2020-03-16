@@ -1,17 +1,15 @@
-const fire = () => {
-    const mainTitle = document.getElementById('main-title');
-    mainTitle.textContent = 'Some new text!';
-    mainTitle.style.color = 'white';
-    mainTitle.style.backgroundColor = 'black';
+const section = document.querySelector('section');
+const button = document.querySelector('button');
 
-    const lastItem = document.querySelector('li:last-of-type');
-    lastItem.textContent = lastItem.textContent + ' Changed!';
-};
+section.className = 'red-bg visible';
 
-const click = document.getElementById('click');
-click.addEventListener("click", fire);
-
-const allListItems = document.getElementsByTagName('li');
-for (const list of allListItems) {
-    console.dir(list);
-}
+button.addEventListener("click", () => {
+    // if (section.className === 'red-bg visible') {
+    //     section.className = 'red-bg invisible';
+    // }
+    // else {
+    //     section.className = 'red-bg visible';
+    // }
+    section.classList.toggle('visible');
+    section.classList.toggle('invisible');
+});
