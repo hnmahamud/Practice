@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const session = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session);
 const csrf = require('csurf');
+const flash = require('connect-flash');
 
 const errorController = require('./controllers/error');
 const User = require('./models/user');
@@ -40,18 +41,7 @@ app.use(
 );
 
 app.use(csrfProtection);
-
-app.use((req, res, next) => {
-  if (!req.session.user) {
-    return next();
-  }
-  User.findById(req.session.user._id)
-    .then(user => {
-      req.user = user;
-      next();
-    })
-    .catch(err => console.log(err));
-});
+app.use(flash());
 
 app.use((req, res, next) => {
     res.locals.isAuthenticated = req.session.isLoggedIn;
@@ -59,11 +49,41 @@ app.use((req, res, next) => {
     next();
 });
 
+app.use((req, res, next) => {
+  //throw new Error('Sync error!');
+  if (!req.session.user) {
+    return next();
+  }
+  User.findById(req.session.user._id)
+    .then(user => {
+      //throw new Error('async error!');
+      if (!user) {
+          return next();
+      }
+      req.user = user;
+      next();
+    })
+    .catch(err => {
+        const error = new Error(err);
+        error.httpStatusCode = 500;
+        return next(error);
+    });
+});
+
 app.use('/admin', adminRoutes);
 app.use(shopRoutes);
 app.use(authRoutes);
 
+app.use('/500',errorController.get500);
 app.use(errorController.get404);
+
+app.use((error, req, res, next) => {
+    // res.redirect('/500');
+    res.status(500).render('500', {
+        pageTitle: 'Error!',
+        path: '/500',
+    });
+});
 
 mongoose
   .connect(MONGODB_URI)
