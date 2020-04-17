@@ -163,6 +163,7 @@ exports.postLogout = (req, res, next) => {
     console.log(err);
     res.redirect('/');
   });
+
 };
 
 exports.getReset = (req, res, next) => {

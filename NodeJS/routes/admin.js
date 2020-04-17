@@ -34,8 +34,6 @@ router.post('/edit-product',
             .isString()
             .isLength({min: 3})
             .trim(),
-        check('imageUrl', 'Please enter valid URL.')
-            .isURL(),
         check('price', 'Please enter valid price.')
             .isFloat(),
         check('description', 'Please enter valid description with minimum 5 and maximum 400 characters.')
